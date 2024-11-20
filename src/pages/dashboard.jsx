@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth, db } from "../app/lib/firebaseConfig";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 
 function Dashboard() {
@@ -65,7 +65,7 @@ function Dashboard() {
             }
 
             const active = tickets.filter((ticket) => ticket.status === "Activo").length;
-            const inProgress = tickets.filter((ticket) => ticket.status === "En Proceso").length;
+            const inProgress = tickets.filter((ticket) => ticket.status === "En proceso").length;
             const completed = tickets.filter((ticket) => ticket.status === "Finalizado").length;
 
             projectsData.push({
@@ -84,14 +84,58 @@ function Dashboard() {
         setTicketStats({ active: totalActive, inProgress: totalInProgress, completed: totalCompleted })
     };
 
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            router.push("/");
+        } catch (err) {
+            console.error("Error al cerrar sesión: ", err.message)
+        }
+    }
+
     if (!user || !company) {
         return <p>Cargando...</p>
     }
 
     return (
         <div>
-            <h1>Dashboard</h1>
+            <header className="flex">
+                <h1>Dashboard</h1>
+                <button onClick={handleLogout} className="pd-10px">Cerrar Sesión</button>
+            </header>
             <h2>Bienvenido, {user.displayName}</h2>
+
+            <section>
+                <h3>Acerca de {company.name}</h3>
+                <p><strong>NIT: </strong>{company.nit}</p>
+                <p><strong>Correo: </strong>{company.email}</p>
+                <p><strong>Teléfono: </strong>{company.phone}</p>
+                <p><strong>Dirección: </strong>{company.address}</p>
+            </section>
+
+            <section>
+                <h3>Indicadores de Progreso</h3>
+                <p><strong>Tickets Activos: </strong>{ticketStats.active}</p>
+                <p><strong>Tickets En Proceso: </strong>{ticketStats.inProgress}</p>
+                <p><strong>Tickets Finalizados: </strong>{ticketStats.completed}</p>
+            </section>
+
+            <section>
+                <h3>Proyectos</h3>
+                {projects.length === 0 ? (
+                    <p>No hay proyectos disponibles.</p>
+                ) : (
+                    <ul>
+                        {projects.map((project) => (
+                            <li key={project.id}>
+                                <h4>{project.name}</h4>
+                                <p>{project.description}</p>
+                                <p><strong>Tickets: </strong>{project.ticketsCount}</p>
+                            </li>
+                        ))}
+                    </ul>
+                )} 
+            </section>
         </div>
     )
 }
