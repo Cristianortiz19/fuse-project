@@ -143,7 +143,7 @@ function Dashboard() {
                     ) : (
                         <nav className="grid grid-cols-2 gap-6">
                             {projects.map((project) => (
-                                <a href="/" className="bg-white rounded-[14px] px-8 py-8 flex flex-col gap-4 cursor-pointer hover:scale-105 transition-all" key={project.id}>
+                                <a onClick={() => router.push(`/projects/${project.id}`)} className="bg-white rounded-[14px] px-8 py-8 flex flex-col gap-4 cursor-pointer hover:scale-105 transition-all" key={project.id}>
                                     <h4 className="text-xl font-bold">{project.name}</h4>
                                     <p>{project.description}</p>
                                     <p><strong>Tickets: </strong>{project.ticketsCount}</p>
