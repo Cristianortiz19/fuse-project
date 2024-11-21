@@ -4,6 +4,8 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../app/lib/firebaseConfig";
 import { db } from "../app/lib/firebaseConfig";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore"
+import '@fontsource-variable/dm-sans';
+import '../styles/index.css'
 
 function Register() {
 
@@ -66,38 +68,46 @@ function Register() {
     }
 
     return(
-        <div>
-            <h2>Crear Cuenta</h2>
-            {error && <p>{error}</p>}
-            <form onSubmit={handleRegister}>
-                <span>
-                    <label>Nombre</label>
-                    <input type="text" value={name} onChange={(e => setName(e.target.value))} required />
+        <main>
+            <div className="flex bg-white flex-col gap-10 justify-center align-center px-36 py-36 rounded-[26px] shadow-2xl" >
+
+                <span className="flex flex-col align-center justify-center">
+                    <figure className="flex align-center justify-center"><img src="./fuse-project-logo.webp" alt="" /></figure>
+                    <p className="text-xl font-extralight text-[#828282] text-center">Monitorea el avance de tus proyectos en tiempo real</p>
                 </span>
-                <span>
-                    <label>Email</label>
-                    <input type="email" value={email} onChange={(e => setEmail(e.target.value))} required />
-                </span>
-                <span>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e => setPassword(e.target.value))} required />
-                </span>
-                <span>
-                    <label>Selecciona tu Compañía</label>
-                    <select value={companyId} onChange={(e) => setCompanyId(e.target.value)}>
-                        <option value="">-- Seleccionar --</option>
-                        {companies.map(company => (
-                            <option key={company.id} value={company.id}>{company.name}</option>
-                        ))}
-                    </select>
-                </span>
-                <button type="submit">Registrarse</button>
-            </form>
-            <p>
-                ¿Ya tienes una cuenta? 
-                <a href="/">Inicia Sesión</a>
-            </p>
-        </div>
+
+                <div className="flex flex-col gap-4">
+                    <span>
+                        <h2 className="text-[#248FFF] text-xl font-extrabold">Crear Cuenta</h2>
+                        <p className="text-[#717171]">¡Unete a nosotros!</p>
+                    </span>
+                    <form className="flex flex-col gap-4" onSubmit={handleRegister}>
+                            
+                        <input className="border border-[#C7C7C7] px-4 py-2 rounded-full placeholder:text-[#ABABAB] text-gray" placeholder="Nombre" type="text" value={name} onChange={(e => setName(e.target.value))} required />
+                    
+                        <input className="border border-[#C7C7C7] px-4 py-2 rounded-full placeholder:text-[#ABABAB]" placeholder="Correo electrónico" type="email" value={email} onChange={(e => setEmail(e.target.value))} required />
+                    
+                        <input className="border border-[#C7C7C7] px-4 py-2 rounded-full placeholder:text-[#ABABAB]" placeholder="Contraseña" type="password" value={password} onChange={(e => setPassword(e.target.value))} required />
+                    
+                        <select className="border border-[#C7C7C7] px-4 py-2 rounded-full placeholder:text-[#ABABAB]" value={companyId} onChange={(e) => setCompanyId(e.target.value)}>
+                            <option value="">Selecciona una compañía</option>
+                            {companies.map(company => (
+                                <option key={company.id} value={company.id}>{company.name}</option>
+                            ))}
+                        </select>
+
+                        {error && <p>{error}</p>}
+                        <button className="bg-[#2490FF] color-white font-bold text-white py-2 rounded-full hover:bg-[#53A8FF]" type="submit">Registrarse</button>
+                    </form>
+                </div>
+                
+                
+                <p className="text-[#ABABAB] flex justify-center">
+                    ¿Ya tienes una cuenta? {" "}
+                    <a className="text-[#2490FF] font-bold" href="/"> Inicia Sesión</a>
+                </p>
+            </div>
+        </main>
     )
 }
 

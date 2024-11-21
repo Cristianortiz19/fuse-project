@@ -3,6 +3,10 @@ import { useRouter } from "next/router";
 import { auth, db } from "../app/lib/firebaseConfig";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
+import '@fontsource-variable/dm-sans';
+import '../styles/index.css'
+import Header from "@/components/Header";
+import HashLoader from "react-spinners/HashLoader";
 
 function Dashboard() {
 
@@ -94,48 +98,61 @@ function Dashboard() {
     }
 
     if (!user || !company) {
-        return <p>Cargando...</p>
+        return <HashLoader color="#33b6ff" className="absolute top-[50vh] -right-[50vw]" />
     }
 
     return (
-        <div>
-            <header className="flex">
-                <h1>Dashboard</h1>
-                <button onClick={handleLogout} className="pd-10px">Cerrar Sesión</button>
-            </header>
-            <h2>Bienvenido, {user.displayName}</h2>
+        <div className="bg-[#EEEEEE] h-[100%]">
+            <Header />
+            {/*<button onClick={handleLogout} className="pd-10px">Cerrar Sesión</button>*/}
+            <div className="mt-[20px] px-[130px] py-[50px] flex flex-col gap-8">
+                
+                <h2 className="text-3xl text-[#5A5A5A]">Bienvenido, <strong className="text-[#2490FF]">{user.displayName}</strong></h2>
 
-            <section>
-                <h3>Acerca de {company.name}</h3>
-                <p><strong>NIT: </strong>{company.nit}</p>
-                <p><strong>Correo: </strong>{company.email}</p>
-                <p><strong>Teléfono: </strong>{company.phone}</p>
-                <p><strong>Dirección: </strong>{company.address}</p>
-            </section>
-
-            <section>
-                <h3>Indicadores de Progreso</h3>
-                <p><strong>Tickets Activos: </strong>{ticketStats.active}</p>
-                <p><strong>Tickets En Proceso: </strong>{ticketStats.inProgress}</p>
-                <p><strong>Tickets Finalizados: </strong>{ticketStats.completed}</p>
-            </section>
-
-            <section>
-                <h3>Proyectos</h3>
-                {projects.length === 0 ? (
-                    <p>No hay proyectos disponibles.</p>
-                ) : (
-                    <ul>
-                        {projects.map((project) => (
-                            <li key={project.id}>
-                                <h4>{project.name}</h4>
-                                <p>{project.description}</p>
-                                <p><strong>Tickets: </strong>{project.ticketsCount}</p>
+                <section className="bg-[#F4D30A] px-12 py-12 rounded-[55px] flex justify-between">
+                    <div>
+                        <h3 className="text-white text-6xl font-black">{company.name}</h3>
+                        <p><strong>NIT: </strong>{company.nit}</p>
+                        <p><strong>Correo: </strong>{company.email}</p>
+                        <p><strong>Teléfono: </strong>{company.phone}</p>
+                        <p><strong>Dirección: </strong>{company.address}</p>
+                    </div>
+                    <div className="bg-white px-10 py-10 rounded-[24px]">
+                        <h3 className="text-xl font-bold text-[#6A6A6A]">Indicadores de progreso</h3>
+                        <ul className="flex flex-col gap-2">
+                            <li className="flex justify-between items-center">  
+                                <p className="text-[#9B9B9B]">Tickets activos:</p>
+                                <strong className="bg-[#28C06D] text-white px-4 py-2 rounded-full">{ticketStats.active}</strong>
                             </li>
-                        ))}
-                    </ul>
-                )} 
-            </section>
+                            <li className="flex justify-between">
+                                <p className="text-[#9B9B9B]">Tickets en proceso:</p>
+                                <strong className="bg-[#F4D30A] text-white px-4 py-2 rounded-full">{ticketStats.inProgress}</strong>
+                            </li>
+                            <li className="flex justify-between">
+                                <p className="text-[#9B9B9B]">Tickets finalizados:</p>
+                                <strong className="bg-[#F45555] text-white px-4 py-2 rounded-full">{ticketStats.completed}</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section className="flex flex-col gap-6">
+                    <h3 className="text-3xl text-[#5A5A5A]">Proyectos</h3>
+                    {projects.length === 0 ? (
+                        <p>No hay proyectos disponibles.</p>
+                    ) : (
+                        <nav className="grid grid-cols-2 gap-6">
+                            {projects.map((project) => (
+                                <a href="/" className="bg-white rounded-[14px] px-8 py-8 flex flex-col gap-4 cursor-pointer hover:scale-105 transition-all" key={project.id}>
+                                    <h4 className="text-xl font-bold">{project.name}</h4>
+                                    <p>{project.description}</p>
+                                    <p><strong>Tickets: </strong>{project.ticketsCount}</p>
+                                </a>
+                            ))}
+                        </nav>
+                    )} 
+                </section>
+            </div>
         </div>
     )
 }
