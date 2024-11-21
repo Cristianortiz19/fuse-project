@@ -1,10 +1,50 @@
-import React from "react";
-import { userIcon } from "./Icons";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { db } from "../app/lib/firebaseConfig"
+import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 
 function Header() {
+
+    const router = useRouter();
+    const { id: projectId } = router.query;
+
+    const [ project, setProject]  = useState(null);
+    const [ userStories, setUserStories ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
+
+    useEffect(() => {
+        if (projectId) {
+            
+        }
+    }, [projectId])
+
+    const loadProjectDetails = async () => {
+        try {
+            const projectDoc = await getDoc(doc(db, "projects", projectId));
+            if (projectDoc.exists()) {
+                setProject({ id: projectDoc.id, ...projectDoc.data() });
+
+                const userStoriesQuery = query(collection(db, "userStories"), where("projectId", "==", projectDoc.id));
+
+                const userStoriesDocs = await getDocs(userStoriesQuery);
+
+                const stories = userStoriesDocs.docs.map((doc) => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+
+                setUserStories(stories);
+            }
+        } catch (error) {
+            console.error("Error al cargar los detalles del proyecto:", error)
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return(
         <header className="bg-white flex justify-between align-center px-28 py-4 w-[100%]">
-            <figure className="w-52"><img className="" src="./fuse-project-logo.webp" alt="" /></figure>
+            <figure className="w-52"><img className="" src="/fuse-project-logo.webp" alt="" /></figure>
             <nav className="flex align-center justify-center gap-16">
                 <a className="h-6" href="">Inicio</a>
                 <a className="h-6" href="">Historial de tickets</a>
