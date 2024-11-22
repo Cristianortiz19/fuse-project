@@ -7,6 +7,7 @@ import { collection, doc, getDocs, setDoc } from "firebase/firestore"
 import '@fontsource-variable/dm-sans';
 import '../styles/index.css'
 import Head from "next/head";
+import Link from 'next/link';
 
 function Register() {
 
@@ -109,7 +110,7 @@ function Register() {
                 
                 <p className="text-[#ABABAB] flex justify-center">
                     ¿Ya tienes una cuenta? {" "}
-                    <a className="text-[#2490FF] font-bold" href="/"> Inicia Sesión</a>
+                    <Link className="text-[#2490FF] font-bold" href="/"> Inicia Sesión</Link>
                 </p>
             </div>
         </main>

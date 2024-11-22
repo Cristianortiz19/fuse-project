@@ -8,6 +8,7 @@ import '../styles/index.css'
 import Header from "@/components/Header";
 import HashLoader from "react-spinners/HashLoader";
 import Head from "next/head";
+import Link from 'next/link';
 
 function Dashboard() {
 
@@ -149,11 +150,11 @@ function Dashboard() {
                     ) : (
                         <nav className="grid grid-cols-2 gap-6">
                             {projects.map((project) => (
-                                <a onClick={() => router.push(`/projects/${project.id}`)} className="bg-white rounded-[14px] px-8 py-8 flex flex-col gap-4 cursor-pointer hover:scale-105 transition-all" key={project.id}>
+                                <Link onClick={() => router.push(`/projects/${project.id}`)} className="bg-white rounded-[14px] px-8 py-8 flex flex-col gap-4 cursor-pointer hover:scale-105 transition-all" key={project.id}>
                                     <h4 className="text-xl font-bold">{project.name}</h4>
                                     <p>{project.description}</p>
                                     <p><strong>Tickets: </strong>{project.ticketsCount}</p>
-                                </a>
+                                </Link>
                             ))}
                         </nav>
                     )} 

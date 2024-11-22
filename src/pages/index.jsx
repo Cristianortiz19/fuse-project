@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import '@fontsource-variable/dm-sans';
 import '../styles/index.css'
 import Head from "next/head";
+import Link from 'next/link';
 
 function Login() {
 
@@ -51,7 +52,7 @@ function Login() {
                         {error && <p className="text-red">{error}</p>}
                         <button className="bg-[#2490FF] color-white font-bold text-white py-2 rounded-full hover:bg-[#53A8FF]" type="submit">Ingresar</button>
                     </form>
-                    <p className="text-[#ABABAB] flex justify-center">¿Ya tienes una cuenta? <a className="text-[#2490FF] font-bold" href="/register">Regístrate</a></p>
+                    <p className="text-[#ABABAB] flex justify-center">¿Ya tienes una cuenta? <Link className="text-[#2490FF] font-bold" href="/register">Regístrate</Link></p>
                 </div>
             </div>
         </main>
