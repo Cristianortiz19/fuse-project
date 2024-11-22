@@ -97,12 +97,18 @@ function History() {
     }
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div>
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <Header></Header>
-            <h1>Historial de Tickets</h1>
 
-            <div style={{ marginBottom: "20px" }}>
-                <label htmlFor="filter">Filtrar por estado:</label>
+            <div className="mt-[20px] px-[130px] py-[50px] flex flex-col gap-8">
+                <h1 className="text-3xl text-[#5A5A5A]">Historial de Tickets</h1>
+
+                <div style={{ marginBottom: "20px" }}>
+                    <label htmlFor="filter">Filtrar por estado:</label>
                     <select
                     id="filter"
                     value={filter}
@@ -116,23 +122,23 @@ function History() {
                         <option value="Cancelado">Cancelado</option>
                     </select>
 
-                <input
-                type="text"
-                placeholder="Buscar por descripción..."
-                value={search}
-                onChange={handleSearchChange}
-                style={{
-                    marginLeft: "20px",
-                    padding: "5px",
-                    border: "1px solid #ddd",
-                }}
-                />
+                    <input
+                    type="text"
+                    placeholder="Buscar por descripción..."
+                    value={search}
+                    onChange={handleSearchChange}
+                    style={{
+                        marginLeft: "20px",
+                        padding: "5px",
+                        border: "1px solid #ddd",
+                    }}
+                    />
             </div>
 
             <table style={{ width: "100%", border: "1px solid #ddd", marginTop: "20px" }}>
                 <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Estado</th>
                     <th>Historia de Usuario</th>
@@ -149,7 +155,7 @@ function History() {
                 ) : (
                     filteredTickets.map((ticket) => (
                     <tr key={ticket.id}>
-                        <td>{ticket.id}</td>
+                        <td>{ticket.name}</td>
                         <td>{ticket.description}</td>
                         <td>{ticket.status}</td>
                         <td>{ticket.storyName || "Desconocido"}</td>
@@ -159,6 +165,8 @@ function History() {
                     )}
                     </tbody>
                 </table>
+            </div>
+            
     </div>
     )
 }

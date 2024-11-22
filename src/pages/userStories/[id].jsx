@@ -194,14 +194,14 @@ function UserStoryDetails() {
                             <td className="w-[300px]">{ticket.description}</td>
                             <td>{ticket.status}</td>
                             <td>{ticket.comments || "Sin comentarios"}</td>
-                            <td>
+                            <td className="flex gap-4">
                                 <button
                                 className="bg-[#1779F7] text-white font-bold px-4 py-2 rounded-full hover:scale-105 transition-all"
                                 onClick={() => handleEditClick(ticket)}>
                                 Editar
                                 </button>
                                 {ticket.status === "Activo" && (
-                                <button onClick={() => cancelTicket(ticket.id)}>Cancelar</button>
+                                <button className="bg-[#FF3F3F] text-white font-bold px-4 py-2 rounded-full hover:scale-105 transition-all" onClick={() => cancelTicket(ticket.id)}>Cancelar</button>
                                 )}
                             </td>
                             </tr>
