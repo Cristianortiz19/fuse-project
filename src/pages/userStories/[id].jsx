@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import '@fontsource-variable/dm-sans';
 import '../../styles/index.css'
 import { serverTimestamp } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Head from "next/head";
 
 function UserStoryDetails() {
@@ -17,6 +18,7 @@ function UserStoryDetails() {
     const [ userStory, setUserStory ] = useState(null);
     const [ tickets, setTickets ] = useState([]);
     const [ loading, setLoading ] = useState(true);
+    const [ userId, setUserId] = useState(null);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState(null);
@@ -27,11 +29,25 @@ function UserStoryDetails() {
         description: "",
         status: "Activo",
         comments: "",
+        userId: "",
     })
 
     useEffect(() => {
         loadUserStoryDetails();
     }, [storyId])
+
+    useEffect(() => {
+        const auth = getAuth();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setUserId(user.uid);
+        } else {
+            setUserId(null);
+        }
+        });
+    
+        return () => unsubscribe();
+    }, []);
 
     const loadUserStoryDetails = async () => {
 
@@ -106,6 +122,7 @@ function UserStoryDetails() {
             ...newTicket,
             userStoryId: userStory.id,
             createdAt: serverTimestamp(),
+            userId: userId,
             });
 
             alert("Ticket creado exitosamente.");
