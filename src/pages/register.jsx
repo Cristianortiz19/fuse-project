@@ -6,6 +6,7 @@ import { db } from "../app/lib/firebaseConfig";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore"
 import '@fontsource-variable/dm-sans';
 import '../styles/index.css'
+import Head from "next/head";
 
 function Register() {
 
@@ -69,6 +70,10 @@ function Register() {
 
     return(
         <main>
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <div className="flex bg-white flex-col gap-10 justify-center align-center px-36 py-36 rounded-[26px] shadow-2xl" >
 
                 <span className="flex flex-col align-center justify-center">

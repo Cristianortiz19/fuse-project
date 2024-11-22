@@ -4,6 +4,7 @@ import { auth } from "../app/lib/firebaseConfig";
 import { useRouter } from "next/router";
 import '@fontsource-variable/dm-sans';
 import '../styles/index.css'
+import Head from "next/head";
 
 function Login() {
 
@@ -25,6 +26,10 @@ function Login() {
 
     return(
         <main>
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <div className="flex bg-white flex-col gap-10 justify-center align-center px-36 py-36 rounded-[26px] shadow-2xl">
                 <span className="flex flex-col align-center justify-center">
                     <figure className="flex align-center justify-center"><img src="./fuse-project-logo.webp" alt="" /></figure>

@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import '@fontsource-variable/dm-sans';
 import '../../styles/index.css'
 import { serverTimestamp } from "firebase/firestore";
+import Head from "next/head";
 
 function UserStoryDetails() {
 
@@ -138,6 +139,10 @@ function UserStoryDetails() {
 
     return(
         <div className="bg-[#EEEEEE] h-[100%]">
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <Header></Header>
             <div className="mt-[20px] px-[130px] py-[50px] flex flex-col gap-8">
                 <h1 className="text-3xl text-[#5A5A5A]">Detalles de la historia de usuario</h1>

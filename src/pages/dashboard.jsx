@@ -7,6 +7,7 @@ import '@fontsource-variable/dm-sans';
 import '../styles/index.css'
 import Header from "@/components/Header";
 import HashLoader from "react-spinners/HashLoader";
+import Head from "next/head";
 
 function Dashboard() {
 
@@ -102,9 +103,14 @@ function Dashboard() {
     }
 
     return (
+        
         <div className="bg-[#EEEEEE] h-[100%]">
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <Header />
-            {/*<button onClick={handleLogout} className="pd-10px">Cerrar Sesión</button>*/}
+            
             <div className="mt-[20px] px-[130px] py-[50px] flex flex-col gap-8">
                 
                 <h2 className="text-3xl text-[#5A5A5A]">Bienvenido, <strong className="text-[#2490FF]">{user.displayName}</strong></h2>

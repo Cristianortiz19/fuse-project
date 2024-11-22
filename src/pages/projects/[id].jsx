@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { db } from "../../app/lib/firebaseConfig"
 import { doc, getDoc, collection, query, where, getDocs } from "firebase/firestore";
 import HashLoader from "react-spinners/HashLoader";
+import Head from "next/head";
 
 function ProjectDetails() {
 
@@ -56,6 +57,10 @@ function ProjectDetails() {
 
     return(
         <div className="bg-[#EEEEEE] h-[100%]">
+            <Head>
+                <title>Fuse Project</title>
+                <link rel="icon" href="/icon.png" />
+            </Head>
             <Header></Header>
 
             <div className="mt-[20px] px-[130px] py-[50px] flex flex-col gap-8">
